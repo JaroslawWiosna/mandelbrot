@@ -6,10 +6,14 @@
 bool is_inf(std::complex<double> c) {
     std::complex<double> z{};
     for (int i=0 ; i<100 ; ++i) {
+        std::complex<double> prev = std::pow(z,2) + c;
         z = std::pow(z,2) + c;
         if (std::abs(z) > 2) {
             return false;
         }
+//        if (std::real(z) - std::real(prev) < 0.00001 && std::imag(z) - std::imag(prev) < 0.00001) {
+//            return false;
+//        }
     }
     return true;
 }
@@ -26,14 +30,15 @@ int main() {
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(WIDTH, HEIGHT, "xor");
-    SetTargetFPS(60);
+    SetTargetFPS(2);
 
     #define BACKGROUND CLITERAL(Color) { 0x77, 0x45, 0x45, 0xFF }
     #define FOREGROUND CLITERAL(Color) { 0xc7, 0x45, 0x45, 0xFF }
 
     while (!WindowShouldClose()) {
         BeginDrawing();
-        if (IsKeyPressed(KEY_SPACE)) {
+        //if (IsKeyPressed(KEY_SPACE)) {
+        if (true) {
             ClearBackground(BACKGROUND);
             int w = GetRenderWidth();
             int h = GetRenderHeight();
@@ -51,6 +56,7 @@ int main() {
                 }
             }
         }
+        x_max -= 0.01;
         EndDrawing();
     }
 /*
